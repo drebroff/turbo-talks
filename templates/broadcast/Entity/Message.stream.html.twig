@@ -1,0 +1,22 @@
+{# templates/broadcast/Message.stream.html.twig #}
+bvn
+{% block create %}
+    <turbo-stream action="append" targets="#messages">
+        <template>
+            4234
+            <div id="Pur pur{{ 'message_' ~ id }}">Pur pur{{ entity.content }} (#{{ id }})</div>
+        </template>
+    </turbo-stream>
+{% endblock %}
+
+{% block update %}
+    <turbo-stream action="update" targets="#message_{{ id }}">
+        <template>
+            {{ entity.content }} (#{{ id }}, updated)
+        </template>
+    </turbo-stream>
+{% endblock %}
+
+{% block remove %}
+    <turbo-stream action="remove" targets="#message_{{ id }}"></turbo-stream>
+{% endblock %}

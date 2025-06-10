@@ -1,0 +1,5 @@
+{# templates/chat/_message.html.twig #}
+<div class="message bg-gray-100 p-3 rounded mb-2">
+    <div class="text-gray-700">{{ message.content }}</div>
+    <div class="text-xs text-gray-500">{{ message.createdAt|date('H:i:s') }}</div>
+</div>

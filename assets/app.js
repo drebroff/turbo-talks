@@ -7,4 +7,11 @@ import './bootstrap.js';
  */
 import './styles/app.css';
 
+// import '@symfony/autoimport';
+// import { startStimulusApp } from '@symfony/stimulus-bridge';
+
+// Import Turbo
+import '@hotwired/turbo';
+
+
 console.log('This log comes from assets/app.js - welcome to AssetMapper! 🎉');

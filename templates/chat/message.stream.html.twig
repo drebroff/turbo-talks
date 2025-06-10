@@ -1,0 +1,10 @@
+{# chat/message.stream.html.twig #}
+{# New messages received through the Mercure connection are appended to the div with the "messages" ID. #}
+
+<turbo-stream action="prepend" targets="#messages">
+    <template>
+
+    <div class="text-gray-700">{{ message }}</div>
+    <div class="text-xs text-gray-500">{{ "now"|date('H:i:s') }}</div>
+    </template>
+</turbo-stream>

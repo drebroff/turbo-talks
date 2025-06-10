@@ -1,0 +1,5 @@
+# config/packages/turbo.yaml
+turbo:
+  broadcast:
+    entity_template_prefixes:
+      App\Entity\: broadcast/

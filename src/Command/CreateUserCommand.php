@@ -31,18 +31,18 @@ class CreateUserCommand extends Command
     protected function configure(): void
     {
         $this
-            ->addOption('email', null, InputOption::VALUE_REQUIRED, 'User email')
+            ->addOption('name', null, InputOption::VALUE_REQUIRED, 'User name')
             ->addOption('password', null, InputOption::VALUE_REQUIRED, 'User password');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
-        $email = $input->getOption('email');
+        $username = $input->getOption('name');
         $password = $input->getOption('password');
 
         $user = new User();
-        $user->setEmail($email);
+        $user->setName($username);
 
         $hashedPassword = $this->passwordHasher->hashPassword($user, $password);
         $user->setPassword($hashedPassword);

@@ -4,6 +4,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\DBAL\Types\DateTimeType;
+use Doctrine\DBAL\Types\DateType;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -21,7 +23,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 180, unique: true)]
+    #[ORM\Column(length: 180, unique: false)]
     private ?string $email = null;
 
     #[ORM\Column]
@@ -35,10 +37,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[Assert\Date] // type: string default: This value is not a valid date.
     #[ORM\Column]
-    protected string $birthday;
+    protected \DateTime $birthday;
 
     #[ORM\Column]
-    protected string $name;
+    protected ?string $name  = null;
 
     // Getters and setters...
     
@@ -56,12 +58,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getBirthday(): ?string {
-        return $this->birthday;
+    public function getBirthday(): \DateTime
+    {
+        $birthday = $this->birthday ?? new \DateTime();
+//        $birthday = 'ROLE_USER';
+        return $birthday;
     }
 
     //
-    public function setBirthday(string $birthday): static {
+    public function setBirthday(\DateTime $birthday): static {
         $this->birthday = $birthday;
         return $this;
     }
@@ -79,7 +84,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getUserIdentifier(): string
     {
-        return (string) $this->email;
+        return (string) $this->name;
     }
 
     public function getRoles(): array

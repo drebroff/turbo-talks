@@ -60,7 +60,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getBirthday(): \DateTime
     {
-        $birthday = $this->birthday ?? new \DateTime();
+        $birthday = $this->birthday ?? new \DateTime(); // All date-like values except null
 //        $birthday = 'ROLE_USER';
         return $birthday;
     }

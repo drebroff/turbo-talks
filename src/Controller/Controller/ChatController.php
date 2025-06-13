@@ -20,6 +20,7 @@ class ChatController extends AbstractController
         requirements: [
             '_locale' => 'en|fr',
             '_format' => 'html|xml',
+            '_fragment' => '123' // basically useless, but still in documentation, according ai - is likely a leftover, copy-paste error, or not needed
         ],
         locale: 'en',
         format: 'html')]

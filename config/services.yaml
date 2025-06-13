@@ -22,3 +22,14 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+    ## AI Assistant
+
+
+
+    ## AI Assistant
+    App\Cache\MyClearer:
+        arguments:
+            $logger: '@logger'
+        tags:
+            - { name: kernel.cache_clearer }
+

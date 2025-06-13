@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Validator\Fak;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -23,7 +24,7 @@ class ChatFormType extends AbstractType
             ->add('content', TextType::class, [
                 'constraints' => [
                     new NotBlank(message: 'Chat message should be not blank'),
-//                    new Email(),
+                    new Fak(), // Add your custom validator here
                 ],
             ])
 //            ->add('created_at', DateTimeType::class, [

@@ -51,6 +51,7 @@ class FindDumpCommand extends Command
 
         $finder = new Finder();
         $finder->files()->in($projectDir)->name('file.txt');
+        $io->note("The Finder object doesn't reset its internal state automatically. This means that you need to create a new instance if you do not want to get mixed results.");
         if ($finder->hasResults()) {
             foreach ($finder as $file) {
                 $absoluteFilePath = $file->getRealPath();

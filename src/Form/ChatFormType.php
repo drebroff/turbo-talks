@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
@@ -18,6 +19,16 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class ChatFormType extends AbstractType
 {
+    public function configureOptions(OptionsResolver $resolver): void
+    {
+        $resolver->setDefaults([
+            'csrf_protection' => true,
+            // how to override the field name of the the csrf token in a form ?
+            'csrf_field_name' => '_token2',
+
+        ]);
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -46,8 +57,6 @@ class ChatFormType extends AbstractType
 //            ])
                     ->add('send', SubmitType::class, [
                     'label' => 'Edit message',
-            ])
-
-        ;
+            ]);
     }
 }

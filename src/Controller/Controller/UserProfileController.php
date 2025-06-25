@@ -16,9 +16,11 @@ final class UserProfileController extends AbstractController
         name: 'app_user_profile'
     )]
     public function index(
-        User $user
+        User $user,
+        Request $request,
     ): Response
     {
+
         return $this->render('user_profile/index.html.twig', [
             'controller_name' => 'UserProfileController',
             'user_email' => $user->getEmail(),
@@ -32,6 +34,8 @@ final class UserProfileController extends AbstractController
     public function edit(Request $request, User $user ,EntityManagerInterface $entityManager
     ): Response
     {
+        $languages = $request->getLanguages();         // Provides user languages from browser
+        $a = 123;
         $email = $user->getEmail();
         $id = $user->getId();
         $user_name = $user->getName();

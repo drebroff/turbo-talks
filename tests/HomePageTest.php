@@ -6,6 +6,10 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class HomePageTest extends WebTestCase
 {
+
+    /**
+     * @group legacy
+     */
     public function testSomething(): void
     {
         $client = static::createClient();

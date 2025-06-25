@@ -12,9 +12,18 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mercure\HubInterface;
 use Symfony\Component\Mercure\Update;
 use Symfony\Component\Routing\Annotation\Route;
+use Twig\Environment;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Error\SyntaxError;
 
 class ChatController extends AbstractController
 {
+    /**
+     * @throws SyntaxError
+     * @throws RuntimeError
+     * @throws LoaderError
+     */
     #[Route('/',
         name: 'chat',
         requirements: [
@@ -24,8 +33,11 @@ class ChatController extends AbstractController
         ],
         locale: 'en',
         format: 'html')]
-    public function index(EntityManagerInterface $entityManager, Request $request, HubInterface $hub): Response
+    public function index(EntityManagerInterface $entityManager, Request $request, HubInterface $hub, Environment $twig): Response
     {
+        $this->addFlash('success', 'Your message was sent!');
+        $template = $twig->load('user_page/user_page.html.twig');
+        $a = $template->render(['name' => 'test']); // method returns the rendered template as a string
         $messages = $entityManager->getRepository(Message::class)->findBy([], ['createdAt' => 'DESC'], 10);
         $form = $this->createFormBuilder()
 //            ->setAction($this->generateUrl('messages'))
@@ -56,12 +68,15 @@ class ChatController extends AbstractController
             // It will replace the content of the Turbo Frame after a post
             $form = $emptyForm;
         }
-        return $this->render('chat/index.html.twig', [
+        $response  = $this->render('chat/index.html.twig', [
             'messages' => $messages,
             'form' => $form,
 //            'form2' => $form2
 
         ]);
+//        $response->setPublic();
+//        $response->setMaxAge(0);
+        return $response ;
     }
 
     #[Route('/messages', name: 'messages', methods: ['POST'])]

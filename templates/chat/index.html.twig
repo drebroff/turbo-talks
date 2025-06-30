@@ -11,7 +11,13 @@
     {% endfor %}
 
 {#    {{ render_esi(url('app_dummy_message', { 'maxPerPage': 5 })) }}#}
+<ul>
+    <li><strong>affirmative (default)</strong> This grants access as soon as there is one voter granting access;</li>
+    <li><strong>consensus</strong> This grants access if there are more voters granting access than denying. In case of a tie the decision is based on the allow_if_equal_granted_denied config option (defaulting to true)</li>
+    <li><strong>unanimous</strong> This only grants access if there is no voter denying access.</li>
+    <li><strong>priority</strong> This grants or denies access by the first voter that does not abstain, based on their service priority;</li>
 
+</ul>
     <div class="container mx-auto p-4">
         <table>
             <thead>

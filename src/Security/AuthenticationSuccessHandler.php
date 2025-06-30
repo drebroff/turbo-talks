@@ -20,7 +20,7 @@ class AuthenticationSuccessHandler implements AuthenticationSuccessHandlerInterf
         $a  = 234;
         // Check if user has ROLE_ADMIN
         if (in_array('ROLE_ADMIN', $token->getRoleNames())) {
-            return new RedirectResponse($this->urlGenerator->generate('app_admin_dashboard'));
+            return new RedirectResponse($this->urlGenerator->generate('app_admin_dashboard')); // The HTTP status code (302 "Found" by default)
         }
 
         // Default redirect for non-admin users

@@ -62,10 +62,17 @@ final class DummyMessageController extends AbstractController
     /**
      * @throws ExceptionInterface
      */
-    #[Route('/hello/{name}', name: 'app_message_dummy')]
-    public function hello(string $name, MessageBusInterface $bus): Response
-    {
+    #[Route(
+        '/hello/{name}',
+        name: 'app_message_dummy',
+//        condition: "context.getMethod() in ['GET', 'HEAD'] and request.headers.get('User-Agent') matches '/firefox/i'",
+         condition: "request.headers.get('User-Agent') matches '%app.allowed_browsers%'"
 
+    )]
+    public function hello(string $name, MessageBusInterface $bus, Request $request): Response
+    {
+        // No, because "forward" method in controller and not in Request class, so we cannot use it when calling Request object
+//        $this->forward('')
         $bus->dispatch(new SendDummyMessage($name));
 
         // Message permits to request an url, in symfony messenger

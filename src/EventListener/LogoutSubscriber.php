@@ -34,7 +34,7 @@ class LogoutSubscriber implements EventSubscriberInterface
         // configure a custom logout response to the homepage
         $response = new RedirectResponse(
             $this->urlGenerator->generate('chat'),
-            RedirectResponse::HTTP_SEE_OTHER
+            RedirectResponse::HTTP_SEE_OTHER // 303
         );
         $event->setResponse($response);
     }

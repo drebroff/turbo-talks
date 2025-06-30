@@ -12,6 +12,8 @@ class HomePageTest extends WebTestCase
      */
     public function testSomething(): void
     {
+        $stub = $this->getMockBuilder('chatroom\Controller\ChatController')
+            ->disableOriginalConstructor(); // to disable constructor when mocking an object
         $client = static::createClient();
         $crawler = $client->request('GET', '/');
 

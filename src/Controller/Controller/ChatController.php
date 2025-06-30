@@ -31,6 +31,7 @@ class ChatController extends AbstractController
             '_format' => 'html|xml',
             '_fragment' => '123' // basically useless, but still in documentation, according ai - is likely a leftover, copy-paste error, or not needed
         ],
+//        condition: "request.headers.get('User-Agent') matches '%app.allowed_browsers%'",
         locale: 'en',
         format: 'html')]
     public function index(EntityManagerInterface $entityManager, Request $request, HubInterface $hub, Environment $twig): Response

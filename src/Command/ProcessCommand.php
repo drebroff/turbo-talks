@@ -50,8 +50,12 @@ class ProcessCommand extends Command
         if (!$process->isSuccessful()) {
             throw new ProcessFailedException($process);
         }
-
-
+        $formatter = $this->getHelper('formatter');
+        $formattedLine = $formatter->formatSection(
+            'SomeSection',
+            'Here is some message related to that section'
+        );
+        $io->writeln($formattedLine);
         $io->success(sprintf('ls -lsa: %s', $process->getOutput()));
 
         return Command::SUCCESS;

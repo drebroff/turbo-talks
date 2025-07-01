@@ -26,6 +26,12 @@ services:
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
     ## AI Assistant
+    App\Form\Extension\TextTypeExtension:
+        tags:
+            - { name: form.type_extension }
+#    App\MyBundle\Service:
+#        tags:
+#            - { name: container.hot_path }
 
 
 

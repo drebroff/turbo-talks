@@ -33,6 +33,8 @@ class ChatFormType extends AbstractType
     {
         $builder
             ->add('content', TextType::class, [
+                'add_custom_class' => true, // This option is now available because io `form.type_extension`
+
                 'constraints' => [
                     new NotBlank(message: 'Chat message should be not blank'),
                     new Fak(), // Add your custom validator here

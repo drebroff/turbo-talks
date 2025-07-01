@@ -4,6 +4,7 @@ namespace App\Controller\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
@@ -52,11 +53,17 @@ final class OrangeApiController extends AbstractController
 //        $response = new BinaryFileResponse($file);
 
 
-        $response = new Response();
-        $response->setContent(json_encode([
-            'data' => 123,
-        ]));
-        $response->headers->set('Content-Type', 'application/json');
+//        $response = new Response();
+//        $response->setContent(json_encode([
+//            'data' => 123,
+//        ]));
+//        $response->headers->set('Content-Type', 'application/json');
+
+//        $response = new JsonResponse(); $response->setData(array('data' => 123));
+
+//        $data = json_encode(array('data' => 123));$response = JsonResponse::fromJsonString($data);
+
+        $response = new JsonResponse(array('data' => 123));
 
         return $response;
     }

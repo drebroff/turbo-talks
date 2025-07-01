@@ -31,7 +31,10 @@ final class UserProfileController extends AbstractController
     #[Route('/admin/user/{id}/edit', name: 'user_edit')]
     // check for "edit" access: calls all voters
 //    #[IsGranted('edit', 'message')]
-    public function edit(Request $request, User $user ,EntityManagerInterface $entityManager
+    public function edit(
+        Request $request,
+        User $user,
+        EntityManagerInterface $entityManager
     ): Response
     {
         $languages = $request->getLanguages();         // Provides user languages from browser

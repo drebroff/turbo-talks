@@ -58,6 +58,8 @@ class FindDumpCommand extends Command
                 $fileNameWithExtension = $file->getRelativePathname();
 
                 $io->success(sprintf('You found dump file: %s', $fileNameWithExtension));
+                $io->note($file->getContents()); // get the contents of a file
+
 
             }
         }

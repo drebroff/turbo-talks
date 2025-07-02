@@ -16,7 +16,13 @@ class HomePageTest extends WebTestCase
             ->disableOriginalConstructor(); // to disable constructor when mocking an object
         $client = static::createClient();
         $crawler = $client->request('GET', '/');
-
+        // Methods can be used:
+        // tick() for checkboxes
+        // select() for selects
+        // upload() for files
+        $crawler = $client->submitForm('Send', [
+            'form[content]' => 'Mai tst',
+        ]);
         $this->assertResponseIsSuccessful();
         $this->assertSelectorTextContains('h1', 'Chat Room');
     }

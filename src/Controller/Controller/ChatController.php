@@ -9,6 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\Mercure\HubInterface;
 use Symfony\Component\Mercure\Update;
 use Symfony\Component\Routing\Annotation\Route;
@@ -34,7 +35,14 @@ class ChatController extends AbstractController
 //        condition: "request.headers.get('User-Agent') matches '%app.allowed_browsers%'",
         locale: 'en',
         format: 'html')]
-    public function index(EntityManagerInterface $entityManager, Request $request, HubInterface $hub, Environment $twig): Response
+    public function index(
+        EntityManagerInterface $entityManager,
+        Request $request,
+        HubInterface $hub,
+        Environment $twig,
+//        #[MapRequestPayload] array $payload, // Prefix PHP attributes that relate to controller arguments with "Map"
+
+    ): Response
     {
         $this->addFlash('success', 'Your message was sent!');
         $template = $twig->load('user_page/user_page.html.twig');

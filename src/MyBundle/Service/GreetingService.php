@@ -14,7 +14,7 @@ class GreetingService
 //        $this->greetingPrefix = $greetingPrefix;
 //    }
     public function __construct(
-        private Security $security
+        private Security $security // constructor injection
     ) {}
 
 

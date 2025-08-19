@@ -16,7 +16,11 @@ use Symfony\Component\Validator\Constraints as Assert;
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
 
-
+/*
+ * The #[Id] attribute CAN be used on more than one column.
+ * The use of the #[GeneratedValue] attribute is not supported, which means you can only use composite keys if you generate the primary key values
+ * Composite keys must only consist of the primitives types integer and string.
+ */
 
     #[ORM\Id]
     #[ORM\GeneratedValue]

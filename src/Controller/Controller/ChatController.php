@@ -44,6 +44,8 @@ class ChatController extends AbstractController
 
     ): Response
     {
+        var_dump(realpath_cache_size());
+
         $this->addFlash('success', 'Your message was sent!');
         $template = $twig->load('user_page/user_page.html.twig');
         $a = $template->render(['name' => 'test']); // method returns the rendered template as a string

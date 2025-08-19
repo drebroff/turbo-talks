@@ -1,1 +1,12 @@
-<strong>Dummy message</strong>
+{% set numA = 2 %} {% set numB = 3 %} What will render {{ ' #{numA + numB} ' }} ?
+
+<strong>Dummy message</strong><br />
+<i>Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8</i>
+<div>The "q" in HTTP headers refers to the **quality value** (also called **qvalue**), which is used to indicate relative preference or priority. It's a decimal number between 0 and 1 that specifies the preference weight.
+</div>
+{{ dump('The value in dump() function is dumped in the HTML page') }}
+{{ dump(astAsArray) }}
+{{ '1' ~ '2' ~ ' apples' }}
+
+{{ dump(data) }}
+{{ data.first-page }}

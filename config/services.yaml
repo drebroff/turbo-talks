@@ -42,3 +42,8 @@ services:
         tags:
             - { name: kernel.cache_clearer }
 
+    App\DataCollector\CustomDataCollector:
+        tags:
+    # data_collector creates a class that collects custom data for the Symfony profiler
+            - { name: data_collector, template: 'data_collector/custom.html.twig', id: 'app.custom_collector' }
+        public: false

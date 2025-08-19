@@ -4,9 +4,11 @@ namespace App\Controller;
 
 use App\Message\SendDummyMessage;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
 use Symfony\Component\HttpClient\Messenger\PingWebhookMessage;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Messenger\Exception\ExceptionInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Attribute\Route;
@@ -16,9 +18,19 @@ use App\Lock\RefreshAir;
 use Symfony\Component\Lock\Key;
 final class DummyMessageController extends AbstractController
 {
-    #[Route('/dummy/message', name: 'app_dummy_message')]
-    public function index(Request $request): Response
+    public MailerInterface $mailer; // Property injection
+
+
+    #[Route('/dummy/message/{page}', name: 'app_dummy_message', defaults: ['page' => 1, 'title' => 'foobar'])]
+    public function index(
+        int $page, string $title,
+
+        Request $request // Setter injection
+    ): Response
     {
+        dump($title);
+        $печеньки = $request->cookies; // I worked on this question before
+
         $store = new SemaphoreStore();
         $factory = new LockFactory($store);
         $m = $request->query->get('bar', 'baz'); // "baz" will be returned by the following code
@@ -53,9 +65,16 @@ final class DummyMessageController extends AbstractController
 
             $lock->release();
         }
-
+        $astAsArray = (new ExpressionLanguage())
+            ->parse('1 + 2', [])
+            ->getNodes()
+            ->toArray() // literally dumps AST
+        ;
         return $this->render('dummy_message/index.html.twig', [
             'controller_name' => 'DummyMessageController',
+            'astAsArray' => $astAsArray,
+//            'apples' =
+            'data' => ['first' => 0, 'first-page' => 1],
         ]);
     }
 

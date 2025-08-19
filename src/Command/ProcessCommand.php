@@ -4,6 +4,7 @@ namespace App\Command;
 
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Cursor;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -33,6 +34,22 @@ class ProcessCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        $cursor = new Cursor($output);
+
+        // Clear entire current line
+        $cursor->clearLine();
+
+        // Clear from cursor to end of line
+        $cursor->clearLineAfter();
+
+        // Clear entire screen
+        $cursor->clearScreen();
+
+        // Clear from cursor to end of screen
+        $cursor->clearOutput();
+
+
+
         $io = new SymfonyStyle($input, $output);
         $arg1 = $input->getArgument('arg1');
 

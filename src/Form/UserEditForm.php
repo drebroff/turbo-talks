@@ -9,6 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Constraints\NotBlank;
@@ -52,7 +53,11 @@ class UserEditForm extends AbstractType
 //            ->add('name')
             ->add('send', SubmitType::class, [
                 'label' => 'Edit user']
-            );
+            )
+            ->addEventListener( //  can use one of its methods as a callback for better readability
+        FormEvents::POST_SET_DATA,
+                    [$this, 'onPostSetData']
+        );
     }
 
 //    public function configureOptions(OptionsResolver $resolver): void

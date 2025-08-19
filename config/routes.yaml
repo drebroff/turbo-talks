@@ -3,3 +3,18 @@ controllers:
         path: ../src/Controller/
         namespace: App\Controller
     type: attribute
+
+doc_shortcut:
+    path: /doc
+    controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController
+    defaults:
+#        path: /doc2 runtime exception
+        route: 'app_dummy_message'
+        # optionally you can define some arguments passed to the route
+        page: 'index'
+        version: 'current'
+        permanent: true # 308 permanent redirect
+        keepQueryParams: true # well keeps 308
+
+        keepRequestMethod: true
+        ignoreAttributes: true

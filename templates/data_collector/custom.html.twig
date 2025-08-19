@@ -1,0 +1,127 @@
+{# templates/data_collector/custom.html.twig #}
+{% extends '@WebProfiler/Profiler/layout.html.twig' %}
+
+{% block toolbar %}
+    {% set icon %}
+        <svg width="20" height="28" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 2l8 6-8 6-8-6z" fill="#AAA"/>
+            <text x="10" y="22" text-anchor="middle" font-size="9" fill="#FFF">
+                {{ collector.customMetrics|length }}
+            </text>
+        </svg>
+        <span class="sf-toolbar-value">{{ collector.customMetrics|length }}</span>
+    {% endset %}
+
+    {% set text %}
+        <div class="sf-toolbar-info-piece">
+            <b>Request Method</b>
+            <span>{{ collector.requestMethod }}</span>
+        </div>
+        <div class="sf-toolbar-info-piece">
+            <b>Response Status</b>
+            <span>{{ collector.responseStatus }}</span>
+        </div>
+        <div class="sf-toolbar-info-piece">
+            <b>Memory Usage</b>
+            <span>{{ (collector.memoryUsage / 1024 / 1024)|number_format(2) }} MB</span>
+        </div>
+        <div class="sf-toolbar-info-piece">
+            <b>Custom Metrics</b>
+            <span>{{ collector.customMetrics|length }} items</span>
+        </div>
+    {% endset %}
+
+    {{ include('@WebProfiler/Profiler/toolbar_item.html.twig', { link: profiler_url }) }}
+{% endblock %}
+
+{% block head %}
+    {{ parent() }}
+    <style>
+        .metrics-table { width: 100%; }
+        .metrics-table th, .metrics-table td { padding: 8px; text-align: left; }
+        .metrics-table th { background-color: #f5f5f5; }
+    </style>
+{% endblock %}
+
+{% block menu %}
+    <span class="label">
+        <span class="icon">
+            <svg width="32" height="32" xmlns="http://www.w3.org/2000/svg">
+                <path d="M16 4l12 8-12 8-12-8z" fill="#3F3F3F"/>
+            </svg>
+        </span>
+        <strong>Custom Data</strong>
+    </span>
+{% endblock %}
+
+{% block panel %}
+    <h2>Custom Data Collector</h2>
+
+    <div class="metrics">
+        <h3>Request Information</h3>
+        <table class="metrics-table">
+            <tbody>
+            <tr>
+                <th>Request Method</th>
+                <td>{{ collector.requestMethod }}</td>
+            </tr>
+            <tr>
+                <th>Request URI</th>
+                <td>{{ collector.requestUri }}</td>
+            </tr>
+            <tr>
+                <th>Response Status</th>
+                <td>{{ collector.responseStatus }}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="metrics">
+        <h3>Memory Information</h3>
+        <table class="metrics-table">
+            <tbody>
+            <tr>
+                <th>Memory Usage</th>
+                <td>{{ (collector.memoryUsage / 1024 / 1024)|number_format(2) }} MB</td>
+            </tr>
+            <tr>
+                <th>Memory Peak</th>
+                <td>{{ (collector.memoryPeak / 1024 / 1024)|number_format(2) }} MB</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="metrics">
+        <h3>Custom Metrics</h3>
+        {% if collector.customMetrics is not empty %}
+            <table class="metrics-table">
+                <thead>
+                <tr>
+                    <th>Metric Name</th>
+                    <th>Value</th>
+                    <th>Type</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for name, value in collector.customMetrics %}
+                    <tr>
+                        <td>{{ name }}</td>
+                        <td>
+                            {% if value is iterable %}
+                                {{ dump(value) }}
+                            {% else %}
+                                {{ value }}
+                            {% endif %}
+                        </td>
+                        <td>{{ value is same as(null) ? 'null' : (value|type) }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No custom metrics collected.</p>
+        {% endif %}
+    </div>
+{% endblock %}

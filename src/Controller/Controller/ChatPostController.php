@@ -28,6 +28,7 @@ final class ChatPostController extends AbstractController
     public function edit(Request $request, Message $message ,EntityManagerInterface $entityManager
 ): Response
     {
+        $body = $request->getContent(); // Returns the request body content.
         $content = $message->getContent();
         $id = $message->getId();
         $created_at = $message->getCreatedAt();

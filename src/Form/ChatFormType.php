@@ -24,7 +24,7 @@ class ChatFormType extends AbstractType
         $resolver->setDefaults([
             'csrf_protection' => true,
             // how to override the field name of the the csrf token in a form ?
-            'csrf_field_name' => '_token2',
+            'csrf_field_name' => '_token2', // by default - "_token"
 
         ]);
     }

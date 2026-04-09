@@ -40,13 +40,14 @@ class ExampleController extends AbstractController
         $fiber->start();
         $logger->info('in main ' . date('Y-m-d H:i:s'));
         $fiber->resume();
-
+        $constant = 'NAME';
+        $traffic_name = TrafficLight::{$constant}; // PHP 8.3 Equivalent to TrafficLight::NAME, works with enum constants.
         return $this->render('example/index.html.twig', [
             'foo' => $this->foo(10),
-            'user' => $this->createUser(name: "Alice", age: 25, code: 300),
+            'user' => $this->createUser($logger, name: "Alice", age: 25, code: 300),
             'urlDetector' => $this->urlDetector(),
            'trafficSignal' => TrafficLight::Red->getAction(), // PHP 8.1 Backed Enums
-
+            'trafficName' => $traffic_name, // PHP 8.3
         ]);
     }
 
@@ -82,7 +83,7 @@ class ExampleController extends AbstractController
         }
         return $blog_message . '</br>' . $connection_message . '</br>' . $article_message;
     }
-    protected function createUser(string $name, int $age, int $code): string
+    protected function createUser(LoggerInterface $logger, string $name, int $age, int $code): string
     {
         $user = $this->getUser();
         $country = $user?->getAddress()?->getCountry(); // PHP 8.0 Avoid null checks when calling methods/properties on possibly null objects.
@@ -95,8 +96,15 @@ class ExampleController extends AbstractController
             default => 'unknown',
         };
 
+        $simple_array = [1, 2, 3];
+        $simple_array_json = json_encode($simple_array);
+        if (json_validate($simple_array_json)) { // PHP 8.3 json_validate() new function
+            $logger->info('JSON is valid');
+        }
+
+
         // PHP 8.1 array_is_list() new function to check if an array is a "list"
-        array_is_list([1, 2, 3]);        // true
+        array_is_list($simple_array);        // true
         array_is_list([0 => 'a', 2 => 'b']); // false (gap)
         array_is_list(['x' => 1]);
 

@@ -3,6 +3,7 @@
 namespace App\Security\Voter;
 
 use App\Entity\User;
+use Override;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -60,4 +61,8 @@ final class ChatPostVoter extends Voter
             // this assumes that the Post object has a `getOwner()` method
             return $user === $post->getOwner();
         }
+    #[Override] // It tells the PHP 8.3 engine that a method is intended to override a method inherited from a parent class or implemented from an interface.
+        public function supportsAttribute(string $attribute): bool {
+        return true;
+    }
 }

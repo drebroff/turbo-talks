@@ -6,6 +6,7 @@ enum TrafficLight
     case Red;
     case Yellow;
     case Green;
+    case NAME;
 
     public function getAction(): string
     {

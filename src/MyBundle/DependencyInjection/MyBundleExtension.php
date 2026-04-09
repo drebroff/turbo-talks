@@ -9,6 +9,12 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
 class MyBundleExtension extends Extension
 {
+    public function addAnnotatedClassesToCompile(array $annotatedClasses): void
+    {
+        trigger_deprecation('symfony/http-kernel', '7.1', 'The "%s()" method is deprecated since Symfony 7.1 and will be removed in 8.0.', __METHOD__);
+
+        $this->annotatedClasses = array_merge($this->annotatedClasses, $annotatedClasses);
+    }
     public function load(array $configs, ContainerBuilder $container): void
     {
        $loader = new XmlFileLoader(

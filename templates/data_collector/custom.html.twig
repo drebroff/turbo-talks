@@ -115,7 +115,7 @@
                                 {{ value }}
                             {% endif %}
                         </td>
-                        <td>{{ value is same as(null) ? 'null' : (value|type) }}</td>
+                        <td>{{ value is same as(null) ? 'null' : (value) }}</td>
                     </tr>
                 {% endfor %}
                 </tbody>

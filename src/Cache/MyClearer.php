@@ -10,11 +10,13 @@ use Psr\Log\LoggerInterface;
 // Purpose: Register your service to be called during the cache clearing process
 class MyClearer implements CacheClearerInterface
 {
-    private LoggerInterface $logger;
 
-    public function __construct(LoggerInterface $logger)
+
+    public function __construct(
+        private LoggerInterface $logger, // PHP 8.0 Reduce boilerplate in class constructors.
+    )
     {
-        $this->logger = $logger;
+
     }
 
 
